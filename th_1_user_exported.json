@@ -1,0 +1,253 @@
+{
+	"info": {
+		"_postman_id": "9ce0b578-7565-4fff-a902-a2c0a5578314",
+		"name": "th_1_user",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "10070648",
+		"_collection_link": "https://blue-eclipse-3560.postman.co/workspace/nobi_owner~90af45a3-9d53-47e9-b706-be23a072e9d6/collection/10070648-9ce0b578-7565-4fff-a902-a2c0a5578314?action=share&source=collection_link&creator=10070648"
+	},
+	"item": [
+		{
+			"name": "create_a_new_user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//tao email va username tu dong, su dung random trong math\r",
+							"var random = Math.random().toString(36).substring(2);\r",
+							"var useremail = \"vi\" + random + \"@gmail.com\";\r",
+							"var username =  \"vi\" + random;\r",
+							"\r",
+							"//gan username va email vao ten cac bien khac\r",
+							"pm.environment.set(\"email_ev\",useremail);\r",
+							"pm.environment.set(\"username_ev\",username);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Kiểm tra phản hồi để lấy giá trị id\r",
+							"pm.test(\"Create User - Save ID to Environment\", function() {\r",
+							"    var responseBody = pm.response.json();\r",
+							"    pm.environment.set(\"id_ev\", responseBody.id);\r",
+							"});\r",
+							"\r",
+							"// var responseBody = pm.response.text();\r",
+							"// var json_data = JSON.parse(responseBody);\r",
+							"// console.log(json_data);\r",
+							"// console.log(json_data.id);\r",
+							"// pm.environment.set(\"id_ev\",json_data.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"{{username_ev}}\",\r\n  \"gender\": \"male\",\r\n  \"email\": \"{{email_ev}}\",\r\n  \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{api_ev}}/public/v2/users"
+			},
+			"response": []
+		},
+		{
+			"name": "get_a_user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"   // Kiểm tra nếu phản hồi có lỗi 404\r",
+							"   // pm.expect(pm.response.code).not.eql(404);\r",
+							"// Validating JSON fields in the response\r",
+							"\r",
+							"\r",
+							"// pm.test(\"Verify JSON field values\", () => {\r",
+							"//     // Lấy nội dung phản hồi dưới dạng chuỗi văn bản\r",
+							"//     var responseBody = pm.response.text();\r",
+							"    \r",
+							"//     // Phân tích chuỗi JSON thành đối tượng JavaScript\r",
+							"//     var jsonData = JSON.parse(responseBody);\r",
+							"    \r",
+							"//     // Kiểm tra và xác minh giá trị của các trường JSON\r",
+							"//     pm.expect(jsonData.id).to.eql(pm.environment.get(\"id_ev\"));\r",
+							"//     pm.expect(jsonData.email).to.eql(pm.environment.get(\"email_ev\"));\r",
+							"//     pm.expect(jsonData.name).to.eql(pm.environment.get(\"username_ev\"));\r",
+							"// });\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify JSON field values\", function() {\r",
+							"    // Lấy nội dung phản hồi dưới dạng chuỗi văn bản\r",
+							"    var responseBody = pm.response.text();\r",
+							"    \r",
+							"    // Phân tích chuỗi JSON thành đối tượng JavaScript\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    \r",
+							"    // Kiểm tra và xác minh giá trị của các trường JSON\r",
+							"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"id_ev\"), \"ID should match the expected value from environment\");\r",
+							"    pm.expect(jsonData.email).to.eql(pm.environment.get(\"email_ev\"), \"Email should match the expected value from environment\");\r",
+							"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"username_ev\"), \"Name should match the expected value from environment\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{api_ev}}/public/v2/users/{{id_ev}}"
+			},
+			"response": []
+		},
+		{
+			"name": "update_a_user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//tao email va username tu dong, su dung random trong math\r",
+							"var random = Math.random().toString(36).substring(2);\r",
+							"var useremail = \"vi\" + random + \"@gmail.com\";\r",
+							"var username =  \"vi\" + random;\r",
+							"\r",
+							"//gan username va email vao ten cac bien khac\r",
+							"pm.environment.set(\"email_ev\",useremail);\r",
+							"pm.environment.set(\"username_ev\",username);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify user information update and difference with initial value\", function() {\r",
+							"    // Kiểm tra mã trạng thái của phản hồi\r",
+							"    pm.response.to.have.status(200); // Hoặc bất kỳ mã trạng thái thành công nào khác tùy thuộc vào API của bạn\r",
+							"    \r",
+							"    // Lấy nội dung phản hồi dưới dạng chuỗi văn bản\r",
+							"    var responseBody = pm.response.text();\r",
+							"    \r",
+							"    // Phân tích chuỗi JSON thành đối tượng JavaScript\r",
+							"    var responseData = JSON.parse(responseBody);\r",
+							"    \r",
+							"    // So sánh thông tin người dùng trước và sau cập nhật để đảm bảo rằng dữ liệu đã được cập nhật chính xác\r",
+							"    pm.expect(responseData.name).to.eql(pm.environment.get(\"username_ev\"), \"Name should be updated correctly\");\r",
+							"    pm.expect(responseData.email).to.eql(pm.environment.get(\"email_ev\"), \"Email should be updated correctly\");\r",
+							"\r",
+							"    // Kiểm tra sự khác biệt giữa giá trị sau khi cập nhật và giá trị ban đầu\r",
+							"    pm.expect(responseData.name).to.not.eql(pm.environment.get(\"initialUsername\"), \"Name should be different from initial value\");\r",
+							"    pm.expect(responseData.email).to.not.eql(pm.environment.get(\"initialEmail\"), \"Email should be different from initial value\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"{{username_ev}}\",\r\n  \"gender\": \"female\",\r\n  \"email\": \"{{email_ev}}\",\r\n  \"status\": \"inactive\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{api_ev}}/public/v2/users/{{id_ev}}"
+			},
+			"response": []
+		},
+		{
+			"name": "delete_a_user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify data deletion\", function() {\r",
+							"    // Kiểm tra mã trạng thái của phản hồi\r",
+							"    pm.response.to.have.status(204); // Hoặc bất kỳ mã trạng thái thành công nào khác tùy thuộc vào API của bạn\r",
+							"    \r",
+							"    // Kiểm tra xem dữ liệu đã bị loại bỏ hoặc không còn tồn tại trong hệ thống nữa\r",
+							"    pm.expect(pm.response.text()).to.eql('', \"Response should be empty after deletion\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{api_ev}}/public/v2/users/{{id_ev}}"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "b240b3dc0ed030d96225dbce4d22eb18d673567197364857bbe600179b72e8ba"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"\r",
+					"pm.environment.set(\"api_ev\",\"https://gorest.co.in\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

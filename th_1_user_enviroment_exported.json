@@ -1,0 +1,39 @@
+{
+	"id": "99e449e9-1e3c-4559-977c-373c05a58426",
+	"name": "th_2",
+	"values": [
+		{
+			"key": "th_2_ev",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "api_ev",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "email_ev",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "username_ev",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "id_ev",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-06-14T23:01:09.901Z",
+	"_postman_exported_using": "Postman/11.2.1"
+}
